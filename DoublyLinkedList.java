@@ -48,9 +48,50 @@ public class DoublyLinkedList implements List{
 		}
 		size++;
 	}
+	
 	public void insert(Object o, int pos) throws Exception{
+		if (pos >= size) {
+			throw new IndexOutOfBoundsException();
+		}
+		DNode newNode = new DNode(o);
+		if(pos == 0) {
+			head.setPrev(newNode);
+			head = newNode;
+		}
 		
+		else if(pos == size-1) {
+			tail.setNext(newNode);
+			tail = newNode
+		}
+		
+		else {
+			DNode curr;
+			if (pos < size/2) {
+				curr = head;
+				for(int i = 0;i < pos; i++) {
+					curr = curr.getNext();
+				}	
+			}
+			else {
+				curr = tail;
+				for(int i = 0;i < size-pos-1; i++) {
+					curr = curr.getPrev();
+				}	
+			}
+			// curr is the thing to remove
+			toReturn = curr.getElt();
+			//set the next of thing before curr to curr.getNext()
+			curr.getPrev().setNext(newNode);
+			//set the prev of thing after curr to curr.getPrev()
+			curr.getNext().setPrev(newNode);
+			
+			newNode.setNext(curr.getNext());
+			newNode.setPrev(curr.getPrev());
+		}
+		// size update
+		size++;
 	}
+	
 	public Object remove(int pos) throws Exception{ 
 		if (pos >= size) {
 			throw new IndexOutOfBoundsException();
@@ -97,7 +138,16 @@ public class DoublyLinkedList implements List{
 		return null;
 	}
 	public boolean remove(Object o) { 
-		return true;
+		curr = head;
+		for(int i = 0; i < size - 1; i++) {
+			if(curr.getElt().equals(o)){
+				curr.getPrev().setNext(curr.getNext());
+				curr.getNext().setPrev(curr.getPrev());
+				return true;
+			}
+			curr = curr.getNext();
+		}
+		return false;
 	}
 	public int find(Object o) {
 		DNode curr = head;
