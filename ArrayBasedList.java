@@ -99,13 +99,7 @@ public class ArrayBasedList implements List {
 		for (int i = 0; i < 10; i++) {
 			abl.add(i);
 		}
-//		System.out.println(abl.length());
-//		System.out.println(abl.get(9));
-//		abl.insert(47, 5);
-//		System.out.println(abl);
 		abl.set(13, 5);
-//		System.out.println(abl);
-//		System.out.println(abl.find(6));
 		System.out.println(abl);
 		System.out.println(abl.remove(3));
 		System.out.println(abl);
